@@ -12,9 +12,17 @@ class TodoListViewController: UITableViewController {
 
     var itemArray = ["Find Mark", " Buy Eggos", "Kill Demogorgon"]
     
+    var defaults = UserDefaults.standard
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        if let item = defaults.array(forKey: "TodoListItemArray") as? [String] {
+          
+            itemArray = item
+        }
+        
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -27,8 +35,7 @@ class TodoListViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TodoListCell", for: indexPath)
         
         cell.textLabel?.text = itemArray[indexPath.row]
-      
-        
+    
         return cell
     }
     
@@ -39,6 +46,7 @@ class TodoListViewController: UITableViewController {
             tableView.cellForRow(at: indexPath)?.accessoryType = .none
         } else {
             tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+            
         }
     }
 //MARK: Add New Items
@@ -54,6 +62,9 @@ class TodoListViewController: UITableViewController {
             // What will happen when the user click on the Add Items button on our UIAlert
             print("Add Item")
             self.itemArray.append(textField.text!)
+            
+            self.defaults.set(self.itemArray, forKey: "TodoListItemArray")
+            
             self.tableView.reloadData()
             
         }
