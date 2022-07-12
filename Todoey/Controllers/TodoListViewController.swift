@@ -23,6 +23,7 @@ class TodoListViewController: UITableViewController {
         
         let newItem1 = Item()
         newItem1.name = "Find Mike"
+        newItem1.done = true
         itemArray.append(newItem1)
         
         let newItem2 = Item()
@@ -56,7 +57,7 @@ class TodoListViewController: UITableViewController {
         } else {
             cell.accessoryType = .none
         }
-        
+       
         return cell
     }
     
@@ -68,13 +69,20 @@ class TodoListViewController: UITableViewController {
             itemArray[indexPath.row].done = true
         }
         
+    //    itemArray[indexPath.row].done ? false : true
+        
+        tableView.reloadData()
+
         tableView.deselectRow(at: indexPath, animated: true)
         
-        if  tableView.cellForRow(at: indexPath)?.accessoryType == .checkmark {
-            tableView.cellForRow(at: indexPath)?.accessoryType = .none
-        } else {
-            tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
-        }
+//        if  tableView.cellForRow(at: indexPath)?.accessoryType == .checkmark {
+//            tableView.cellForRow(at: indexPath)?.accessoryType = .none
+//        } else {
+//            tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+//        }
+   
+     
+      
     }
 //MARK: Add New Items
     
